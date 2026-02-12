@@ -4501,6 +4501,7 @@ void add_track(CHAR_DATA *ch, int direction)
     LIST_INSERT_HEAD(&ch->in_room->tracks, track, link);
 }
 
+#if 0 // prool for cygwin
 long free_space()
 {
 
@@ -4512,6 +4513,7 @@ long free_space()
     return fs.f_bavail;
 
 }
+#endif
 
 CHAR_DATA *get_master(CHAR_DATA *ch)
 {

@@ -36,6 +36,7 @@
 #include "interp.h"
 #include "recycle.h"
 
+struct clan_type  clan_table[MAX_CLAN]; // prool
 
 bool is_compatible_races(void *ch1, void *ch2, bool is_char_data);
 

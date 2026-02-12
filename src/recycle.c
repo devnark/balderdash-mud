@@ -609,7 +609,7 @@ void free_rpcode(PROG_CODE *pRcode)
 }
 
 /* stuff for recyling notes */
-NOTE_DATA *note_free;
+extern NOTE_DATA *note_free;
 
 NOTE_DATA *new_note()
 {

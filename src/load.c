@@ -12,6 +12,7 @@
 #include "recycle.h"
 
 
+struct moon_type *moons_data; // prool
 
 
 bool skills_changed = FALSE;

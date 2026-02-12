@@ -12,7 +12,7 @@
 #define MAX_REGEXP_TO_ANGRY	10
 #define NMATCH 			8
 
-
+CHAT_KEYS  *chatkeys_list; // prool
 
 char regexp_vars[NMATCH][MAX_INPUT_LENGTH];
 

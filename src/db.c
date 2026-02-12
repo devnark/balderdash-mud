@@ -46,8 +46,12 @@
 
 #include "config.h"
 
-
-
+// by prool:
+char *whitedomains[MAX_WHOIS_ENTRIES];
+char *whiteip[MAX_WHOIS_ENTRIES];
+char *badnames[MAX_BAD_NAMES];
+char *stoplist[MAX_STOP_WORDS];
+char *quote_table[MAX_QUOTES];
 
 extern	int	_filbuf		args((FILE *));
 
@@ -3968,8 +3972,10 @@ void _log_string(const char *str, char *logname)
 {
     FILE *fp;
 
+#if 0 // prool for cygwin
     if (free_space() < MIN_FREE_SPACE)
 	return;
+#endif
 
     if ((fp = file_open(logname, "a")) != NULL)
 	fprintf(fp, "%s", str);

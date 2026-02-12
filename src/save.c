@@ -195,9 +195,13 @@ void fwrite_char(CHAR_DATA *ch, FILE *fp){
     fprintf(fp, "Vers %d\n", 6);
  //  fprintf(fp, "Host %s~\n", ch->pcdata->lasthost);
 //    fprintf(fp, "IP   %s~\n", ch->pcdata->lastip);
-    fprintf(fp, "Host %s~\n", ch->desc->ip);
+#if 0 // prool fool
+    fprintf(fp, "Host %s~\n", ch->desc->ip); // prool: crash here
     fprintf(fp, "IP   %s~\n", ch->desc->ip);
-
+#else
+    fprintf(fp, "Host UNKNOWN~\n");
+    fprintf(fp, "IP   UNKNOWN~\n");
+#endif
 
     if (ch->short_descr[0] != '\0')
 	fprintf(fp, "ShD  %s~\n", ch->short_descr);

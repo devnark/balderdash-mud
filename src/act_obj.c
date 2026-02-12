@@ -38,6 +38,7 @@
 #include "interp.h"
 #include "recycle.h"
 
+AUCTION_DATA auctions[MAX_AUCTION]; // prool
 
 ROOM_INDEX_DATA *	find_location	args((CHAR_DATA *ch, char *arg));
 /*

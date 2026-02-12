@@ -34,6 +34,7 @@
 #include "music.h"
 #include "recycle.h"
 
+char *dream_table[MAX_DREAMS]; // prool
 
 void bust_a_prompt(CHAR_DATA *ch);
 

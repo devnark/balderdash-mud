@@ -52,7 +52,7 @@ devel_rom: $(O_FILES)
 	$(CC) $(L_FLAGS) -o rom $(O_FILES) $(LIBS)
 
 clean:
-	rm -f $(O_FILES)
+	rm -f *.o
 
 devel: devel_rom
 	rm -f /home/mud/mud/devel/area/rom
