@@ -1,0 +1,10 @@
+services:
+  mud-server:
+    build: .
+    container_name: mud-server-c
+    init: true
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./area:/app/area
+    restart: unless-stopped

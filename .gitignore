@@ -1,1 +1,8 @@
 *.o
+.idea
+area/last_command.txt
+area/popularity.txt
+area/rom.9000
+area/wwwcount.txt
+area/maxever.txt
+log/*

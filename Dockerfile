@@ -1,21 +1,33 @@
-# Use the official Ubuntu 14.04 image as the base
-FROM ubuntu:14.04 as builder
+# --- Этап 1: Сборка бинарника ---
+FROM ubuntu:14.04 AS builder
 
-# Set the working directory inside the container
+# ИСПРАВЛЕНИЕ: Переключаем репозитории на архивные (необходимо для работы apt-get в Ubuntu 14.04)
+RUN sed -i 's|http://ubuntu.com|http://ubuntu.com|g' /etc/apt/sources.list && \
+    sed -i 's|http://ubuntu.com|http://ubuntu.com|g' /etc/apt/sources.list
+
 WORKDIR /app
-
 COPY . .
 
-RUN ls -la /app/src
-RUN apt update -y && apt-get install build-essential zlib1g-dev  -y 
-RUN cd /app/src && make install
+# Патчи для корректной компиляции легаси-кода на Mac ARM64
+RUN sed -i 's|srandom(time(NULL)\^getpid());|srandom((unsigned int)time(NULL) \^ (unsigned int)getpid());|g' src/db.c || true
+RUN sed -i 's|C_FLAGS =|C_FLAGS = -fsigned-char|g' src/Makefile
 
+RUN apt-get update && apt-get install -y build-essential zlib1g-dev
+RUN cd /app/src && make rom
+
+# --- Этап 2: Финальный образ для запуска ---
 FROM ubuntu:14.04
-WORKDIR /app/area
+WORKDIR /app
 
-COPY --from=builder /app/bin /app/bin
-COPY --from=builder /app/area /app/area
+# Копируем всё дерево проекта из сборщика
+COPY --from=builder /app /app
+
+# Подготовка папок и прав
+RUN mkdir -p /app/player /app/gods /app/log && \
+    chmod -R 777 /app/player /app/gods /app/log /app/area
+
 EXPOSE 9000
 
-
-CMD ["/app/area/rom", "-f", "/app/area/mud.cfg"]
+# Запуск сервера
+WORKDIR /app/area
+CMD ["/app/src/rom", "-p", "9000", "-f", "/app/area/mud.cfg"]
